@@ -1,0 +1,14 @@
+<form th:action="@{/changemanager}" method="POST" th:object="${persondto}">
+    
+    identifier: <input type="text" th:field="*{identifier}" name="identifier"><br>
+    name: <input type="text" th:field="*{name}" name="name"><br>
+    startdate: <input type="date" th:field="*{startDate}" name="startDate"><br>
+    Username: <input type="text" th:field="*{username}" name="username"><br>
+    Password: <input type="text" th:field="*{password}" name="password"><br>
+    
+    <label th:if="${message}" th:text="${message}"></label>
+
+    <input type="submit">
+    
+</form>
+<a href="manager"><button type="button">Volver</button></a>
