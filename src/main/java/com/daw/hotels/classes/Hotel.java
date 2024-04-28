@@ -63,13 +63,14 @@ public class Hotel implements HotelInterface {
         rooms[9] = new Room(10, RoomType.Double, this);
     }
 
-    ////////////////////////////////////////////// GETTERS AND SETTERS///////////////////////////////////////////////////
+    ////////////////////////////////////////////// GETTERS AND
+    ////////////////////////////////////////////// SETTERS///////////////////////////////////////////////////
 
     /**
-     * <strong>Getter</strong> for the String name attribute of
+     * <strong>Getter</strong> for the "name" String attribute of
      * <strong>Hotel</strong> object.
      * 
-     * @return The String name attribute of the <strong>Hotel</strong> object.
+     * @return The "name" String attribute of the <strong>Hotel</strong> object.
      * @version 1.0
      * @author Karlo1938
      */
@@ -78,10 +79,10 @@ public class Hotel implements HotelInterface {
     }
 
     /**
-     * <strong>Setter</strong> for the String name attribute of
+     * <strong>Setter</strong> for the "name" String attribute of
      * <strong>Hotel</strong> object.
      * 
-     * @param name The String name to set.
+     * @param name The String name to set the "name" String attribute.
      * @version 1.0
      * @author Karlo1938
      */
@@ -90,10 +91,10 @@ public class Hotel implements HotelInterface {
     }
 
     /**
-     * <strong>Getter</strong> for the String address attribute of
+     * <strong>Getter</strong> for the "address" String attribute of
      * <strong>Hotel</strong> object.
      * 
-     * @return The String address attribute of the <strong>Hotel</strong> object.
+     * @return The "address" String attribute of the <strong>Hotel</strong> object.
      * @version 1.0
      * @author Karlo1938
      */
@@ -102,10 +103,10 @@ public class Hotel implements HotelInterface {
     }
 
     /**
-     * <strong>Setter</strong> for the String address attribute of
+     * <strong>Setter</strong> for the "address" String attribute of
      * <strong>Hotel</strong> object.
      * 
-     * @param address The String address to set.
+     * @param address The String address to set the "address" String attribute.
      * @version 1.0
      * @author Karlo1938
      */
@@ -114,10 +115,10 @@ public class Hotel implements HotelInterface {
     }
 
     /**
-     * <strong>Getter</strong> for the String web attribute of
+     * <strong>Getter</strong> for the "web" String attribute of
      * <strong>Hotel</strong> object.
      * 
-     * @return The String web attribute of the <strong>Hotel</strong> object.
+     * @return The "web" String attribute of the <strong>Hotel</strong> object.
      * @version 1.0
      * @author Karlo1938
      */
@@ -126,10 +127,10 @@ public class Hotel implements HotelInterface {
     }
 
     /**
-     * <strong>Setter</strong> for the String web attribute of
+     * <strong>Setter</strong> for the "web" String attribute of
      * <strong>Hotel</strong> object.
      * 
-     * @param web The String web to set.
+     * @param web The String web to set the "web" String attribute.
      * @version 1.0
      * @author Karlo1938
      */
@@ -138,10 +139,10 @@ public class Hotel implements HotelInterface {
     }
 
     /**
-     * <strong>Getter</strong> for the Enum category attribute of
+     * <strong>Getter</strong> for the "category" Enum attribute of
      * <strong>Hotel</strong> object.
      * 
-     * @return The Enum category attribute of the <strong>Hotel</strong> object.
+     * @return The "category" Enum attribute of the <strong>Hotel</strong> object.
      * @version 1.0
      * @author Karlo1938
      */
@@ -150,10 +151,10 @@ public class Hotel implements HotelInterface {
     }
 
     /**
-     * <strong>Setter</strong> for the Enum category attribute of
+     * <strong>Setter</strong> for the "category" Enum attribute of
      * <strong>Hotel</strong> object.
      * 
-     * @param nationality The Enum category to set.
+     * @param nationality The Enum category to set the "category" Enum attribute.
      * @version 1.0
      * @author Karlo1938
      */
@@ -165,7 +166,8 @@ public class Hotel implements HotelInterface {
      * <strong>Getter</strong> for the array of rooms objects attribute of
      * <strong>Hotel</strong> object.
      * 
-     * @return The array of room object of the <strong>Hotel</strong> object.
+     * @return The array of room object attribute of the <strong>Hotel</strong>
+     *         object.
      * @version 1.0
      * @author Karlo1938
      */
@@ -178,7 +180,7 @@ public class Hotel implements HotelInterface {
      * <strong>Setter</strong> for the array of rooms objects attribute of the
      * <strong>Hotel</strong> object.
      * 
-     * @param rooms The array of room objects to set for the <strong>Hotel</strong>
+     * @param rooms The array to set the array of rooms objects attribute.
      *              object.
      * @version 1.0
      * @author Karlo1938
@@ -188,10 +190,10 @@ public class Hotel implements HotelInterface {
     }
 
     /**
-     * <strong>Getter</strong> for the manager object attribute of
+     * <strong>Getter</strong> for the "manager" object attribute of
      * <strong>Hotel</strong> object.
      * 
-     * @return The manager object attribute of the <strong>Hotel</strong> object.
+     * @return The "manager" object attribute of the <strong>Hotel</strong> object.
      * @version 1.0
      * @author Karlo1938
      */
@@ -200,11 +202,10 @@ public class Hotel implements HotelInterface {
     }
 
     /**
-     * <strong>Setter</strong> for the manager object attribute of
+     * <strong>Setter</strong> for the "manager" object attribute of
      * <strong>Hotel</strong> object.
      * 
-     * @param manager The manager object to set for the <strong>Hotel</strong>
-     *                object.
+     * @param manager The manager object to set for the "manager" object attribute.
      * @version 1.0
      * @author Karlo1938
      */
@@ -286,8 +287,19 @@ public class Hotel implements HotelInterface {
      */
     public void setDisponibility() {
         for (Room room : rooms) {
-            room.setDiponibility();
+            room.setAvailability();
         }
+    }
+
+    public Stay getStay(int id) {
+        for (Room room : rooms) {
+            for (Stay stay : room.getStays()) {
+                if (stay.getId() == id)
+                    return stay;
+            }
+        }
+
+        return null;
     }
 
 }

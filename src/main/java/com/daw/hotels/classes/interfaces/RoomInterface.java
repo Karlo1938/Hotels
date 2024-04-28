@@ -26,13 +26,13 @@ public interface RoomInterface {
 
     public void setStays(ArrayList<Stay> stays);
 
-    public boolean isDisponibility();
+    public boolean isAvailability();
 
-    public void setDisponibility(boolean disponibility);
+    public void setAvailability(boolean availability);
     
     /////////////////////////////////////////////METHODS///////////////////////////////////////////////////
 
-    public void setDiponibility();
+    public void setAvailability();
 
     /**
     * Adds <strong>stay</strong> objects to the <strong>stays</strong> ArrayList.

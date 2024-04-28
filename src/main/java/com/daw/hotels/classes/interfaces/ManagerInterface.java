@@ -89,18 +89,51 @@ public interface ManagerInterface extends PersonInterface {
        */
       void setPassword(String password);
 
-      public boolean isAuthenticated();
+      /**
+       * <strong>Getter</strong> for the boolean authenticated attribute of <strong>Manager</strong> object.
+       * @return The boolean authenticated attribute of the <strong>Manager</strong> object.
+       * @version 1.0
+       * @author Karlo1938
+       */
+      boolean isAuthenticated();
 
-      public void setAuthenticated(boolean authenticated);
-      
+      /**
+       * <strong>Setter</strong> for the boolean authenticated attribute of <strong>Manager</strong> object.
+       * @param name The boolean authenticated variable to set.
+       * @version 1.0
+       * @author Karlo1938
+       */
+      void setAuthenticated(boolean authenticated);
+
       ///////////////////////////////////////////// METHODS///////////////////////////////////////////////////
 
+      /**
+       * This method changes or add an instance of hotel for one manager Object, this method ensures that 
+       * the binary relationship one to ona is right.
+       * @param hotel An instant of hotel object that is properly formed.
+       * @author Karlo1938
+       * @version 1.0
+       */
+      void addHotel(Hotel hotel);
+
+      /**
+       * This method changes the boolean authenticated attribute of the Manager object if the credentials 
+       * are correct or return a false if arre'nt correct.
+       * @param username An String username variable to validate the login.
+       * @param password An String username variable to validate the login.
+       * @author Karlo1938
+       * @version 1.0
+       */
+      boolean validate(String username, String password);
       
-      public void addHotel(Hotel hotel);
-
-      public boolean authenticateUser(String username, String password);
-
-      public int addStayToTheRoom(Stay stay);
-
+      /**
+       * Este metodo agrega una instancia de un objeto stay en la lista de objectos stay de la instancia room 
+       * que pertenece al hotel que administra el manager.
+       * @param stay An instant of stay object properly formed.
+       * @return A integer state code
+       * @author Karlo1938
+       * @version 1.0
+       */
+      int addStayToTheRoom(Stay stay);
 
 }

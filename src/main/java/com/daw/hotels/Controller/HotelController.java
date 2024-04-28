@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.daw.hotels.classes.Guest;
 import com.daw.hotels.classes.Hotel;
@@ -57,7 +58,7 @@ public class HotelController {
         public String login(Model model, @ModelAttribute Credentials credentials, HttpSession session){
             if (hotel.getManager().isAuthenticated()) return "redirect:manager";
 
-            if (!hotel.getManager().authenticated(credentials.getUsername(), credentials.getPassword())) {
+            if (!hotel.getManager().validate(credentials.getUsername(), credentials.getPassword())) {
                 model.addAttribute("message", "incorrect credentials");
                 System.out.println("bad");
                 return "login";
@@ -120,11 +121,13 @@ public class HotelController {
             
             model.addAttribute("create_guest", new Guests());
             int room_number = (int)session.getAttribute("room_number");
-            model.addAttribute("persons", (int)session.getAttribute("persons"));
-            
-            model.addAttribute("nextStay", hotel.getRoom(room_number).nextStay());
+            Room room = hotel.getRoom(room_number);
+            if (room == null) model.addAttribute("message", "habitación no encontrada.");
 
+            model.addAttribute("persons", (int)session.getAttribute("persons"));
+            model.addAttribute("nextStays", room.nextStays());
             model.addAttribute("guests", new Guests());
+
             return "addguest";
         }
 
@@ -132,14 +135,12 @@ public class HotelController {
         public String addGuest(Model model, @ModelAttribute Guests guests, HttpSession session){
             
             model.addAttribute("persons", (int)session.getAttribute("persons"));
-            
-            
-
             int room_number = (int)session.getAttribute("room_number");
             Room room = hotel.getRoom(room_number);
 
+            
             if (room == null) model.addAttribute("message", "habitación no encontrada.");
-            model.addAttribute("nextStay", room.nextStay());
+            
 
             String identifier[] = new String[3];
             identifier[0] = guests.getIdentifier1();
@@ -200,14 +201,11 @@ public class HotelController {
                     return "addguest";
                     
                 case 3:
-                    if (!hotel.getManager().reserveRoom(stay)){
-                        
-                        model.addAttribute("message", "habitación no disponible. Reserva para despues de: "+ room.nextDisponibilty() + ".");
+                        model.addAttribute("message", "habitación no disponible en el intervalo de fechas seleccionado.");
                         return "addguest";
-                    }
-                    model.addAttribute("message", "reserva efectuada correctamente.");
-                    return "addguest";
             }
+
+            model.addAttribute("nextStays", room.nextStays());
 
             model.addAttribute("message", "reserva efectuada correctamente.");
             return "addguest";
@@ -228,11 +226,6 @@ public class HotelController {
             
             String identifier = persondto.getIdentifier();
             
-            /*if (Person.validateDni(identifier)) {
-                model.addAttribute("message", "Mal dni");
-                return "changemanager";
-            }
-            */
             LocalDate startDate = persondto.getStartDate();
 
             if (startDate.isAfter(LocalDate.now())) {
@@ -252,6 +245,31 @@ public class HotelController {
             return "redirect: ";
         }
 
+        @GetMapping("/modificar")
+        public String modifyStay(Model model,@RequestParam(value = "id", required = false) int id, @RequestParam(value = "identifier", required = false) String identifier , @RequestParam(value = "delete", required = false) boolean delete){
+            
+            model.addAttribute("id", id);
+            
+            Stay stay = hotel.getStay(id);
+
+            model.addAttribute("guests", stay.getGuests());
+
+            System.out.println(delete);
+            System.out.println(identifier);
+            System.out.println(id);
+
+            if (delete == true && identifier != null) {
+                if (stay.removeGuest(identifier)){
+                    model.addAttribute("message", "borrado con exito.");
+                    return "modify";
+                }
+                else {
+                    model.addAttribute("message", "No se puede borrar al primer huesped.");
+                    return "modify";
+                }
+            }
+            return "modify";
+        }
 
 
 

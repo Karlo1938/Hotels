@@ -5,7 +5,7 @@
     <body>
         <form th:action="@{/addstay}" th:object="${select_room}" method="POST">
             <select th:field="*{roomNumber}" name="roomNumber">
-                <option th:each="room : ${rooms}" th:text="'Room '+${room.number}+' as '+${room.tRoom}+' - '+ ${room.disponibility}" th:value="${room.number}">
+                <option th:each="room : ${rooms}" th:text="'Room '+${room.number}+' as '+${room.tRoom}+' - '+ ${room.availability}" th:value="${room.number}">
                    
                 </option>
 

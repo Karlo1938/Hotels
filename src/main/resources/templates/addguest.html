@@ -28,8 +28,29 @@
     <label th:if="${message}" th:text="${message}"></label>
     <input type="submit">
 </form>
-<div th:if="${nextStay} != null" >
-    <span style="color: red;">A tomar en cuenta: </span>
-    Proxima visita: <span th:text="${nextStay}"> </span></span>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="3">Visits</th>
+            </tr>
+            <tr>
+                <th>Guests</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="stay : ${nextStays}">
+                <td>
+                    <span th:each="guest : ${stay.guests}" th:text="${guest.name}"></span>
+                </td>
+                <td><span th:text="${stay.startDate}"></span></td>
+                <td><span th:text="${stay.endDate}"></span></td>
+                <td><a th:href="'modificar?id='+${stay.id}">modificar</a></td>
+            </tr>
+        </tbody>
+        
+    </table> 
 </div>
 <a href="manager"><button type="button">Volver</button></a>
